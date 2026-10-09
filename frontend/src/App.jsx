@@ -924,7 +924,9 @@ const BACKEND_URL =
   "http://127.0.0.1:8000"
 
 const FRONTEND_URL =
-  "http://localhost:5173"
+  typeof window !== "undefined"
+    ? window.location.origin
+    : "http://localhost:5173"
 
 // =========================================================
 // LOADING SCREEN
