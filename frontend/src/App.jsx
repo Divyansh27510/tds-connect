@@ -922,7 +922,10 @@ import AdminTaskDetail from "./pages/AdminTaskDetail"
 const BACKEND_URL =
   "http://127.0.0.1:8000"
 
-const FRONTEND_URL = "https://tds-connect.vercel.app"
+const FRONTEND_URL =
+  typeof window !== "undefined"
+    ? window.location.origin
+    : "http://localhost:5173"
 
 // =========================================================
 // LOADING SCREEN
@@ -1373,8 +1376,10 @@ function App() {
         await supabase.auth.signInWithOAuth(
           {
             provider: "google",
+
             options: {
-              redirectTo: "https://tds-connect.vercel.app",
+              redirectTo:
+                FRONTEND_URL,
             },
           }
         )
