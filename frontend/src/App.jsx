@@ -863,7 +863,6 @@
 
 
 
-
 import {
   useCallback,
   useEffect,
@@ -925,8 +924,8 @@ const BACKEND_URL =
 
 const FRONTEND_URL =
   typeof window !== "undefined"
-    ? window.location.origin
-    : "http://localhost:5173"
+    ? window.location.origin.trim()
+    : "https://tds-connect.vercel.app"
 
 // =========================================================
 // LOADING SCREEN
@@ -1373,14 +1372,18 @@ function App() {
       setAuthError("")
       setAccessDenied(false)
 
+      const currentOrigin =
+        typeof window !== "undefined"
+          ? window.location.origin.trim()
+          : FRONTEND_URL
+
       const { error } =
         await supabase.auth.signInWithOAuth(
           {
             provider: "google",
 
             options: {
-              redirectTo:
-                FRONTEND_URL,
+              redirectTo: currentOrigin,
             },
           }
         )
